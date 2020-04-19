@@ -1,36 +1,33 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row, Container } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { getBooks } from "../../store/search/actions";
 
-export default function SearchBox() {
-  const dispatch = useDispatch();
-
+export default function SearchBox(props) {
   const [language, setLanguage] = useState("all");
   const [distance, setDistance] = useState("all");
+  const [title, setTitle] = useState("all");
 
-  const clickHandler = () => {
-    dispatch(getBooks());
+  const clickHandler = event => {
+    event.preventDefault();
+    console.log(title, "title", language, "language", distance, "distance");
+    props.getBooks(title, language, distance);
+    console.log("PROPS", title, language);
   };
 
   return (
     <Container className="p-5">
-      <Form className="p-5">
+      <Form className="p-5" onSubmit={clickHandler}>
         <Form.Group controlId="formBasicEmail">
           <Row>
             <Col xs={8}>
               <Form.Control
                 type="search"
                 placeholder="Search a book by title"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
               />
             </Col>
             <Col xs={2}>
-              <Button
-                variant="primary"
-                type="search"
-                block
-                onClick={clickHandler}
-              >
+              <Button variant="primary" type="search" block>
                 Search
               </Button>
             </Col>
@@ -41,9 +38,7 @@ export default function SearchBox() {
         <Col xs={4}>
           <div className="input-group p-3">
             <div className="input-group-prepend">
-              <label className="input-group-text" for="inputGroupSelect01">
-                Search by language
-              </label>
+              <label className="input-group-text">Search by language</label>
             </div>
             <select
               className="custom-select"
@@ -51,21 +46,19 @@ export default function SearchBox() {
               onChange={e => setLanguage(e.target.value)}
             >
               <option value="all">All</option>
-              <option value="1">Turkish</option>
-              <option value="2">Portuguese</option>
-              <option value="3">Polish</option>
-              <option value="3">Russian</option>
-              <option value="3">French</option>
-              <option value="3">Spanish</option>
+              <option value="tr">Turkish</option>
+              <option value="pt">Portuguese</option>
+              <option value="pl">Polish</option>
+              <option value="ru">Russian</option>
+              <option value="fr">French</option>
+              <option value="es">Spanish</option>
             </select>
           </div>
         </Col>
         <Col xs={4}>
           <div className="input-group p-3">
             <div className="input-group-prepend">
-              <label className="input-group-text" for="inputGroupSelect01">
-                Books around me
-              </label>
+              <label className="input-group-text">Books around me</label>
             </div>
             <select
               className="custom-select"
