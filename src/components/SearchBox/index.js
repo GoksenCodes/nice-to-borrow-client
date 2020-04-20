@@ -13,6 +13,16 @@ export default function SearchBox(props) {
     console.log("PROPS", title, language);
   };
 
+  const showPosition = position => {
+    const { latitude, longitude } = position.coords;
+    console.log("COORDINATS", latitude, longitude);
+  };
+
+  const getCoordinats = event => {
+    event.preventDefault();
+    navigator.geolocation.getCurrentPosition(showPosition);
+  };
+
   return (
     <Container className="p-5">
       <Form className="p-5" onSubmit={clickHandler}>
@@ -63,6 +73,7 @@ export default function SearchBox(props) {
             <select
               className="custom-select"
               id="inputGroupSelect01"
+              onFocus={getCoordinats}
               onChange={e => setDistance(e.target.value)}
             >
               <option value="all">All</option>
