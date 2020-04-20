@@ -6,8 +6,10 @@ import { fetchSearchedBooks } from "../../store/searchResult/actions";
 export default function HomePage() {
   const dispatch = useDispatch();
 
-  const getBooks = (title, language, distance) => {
-    dispatch(fetchSearchedBooks(title, language, distance));
+  const getBooks = (title, language, distance, latitude, longitude) => {
+    dispatch(
+      fetchSearchedBooks(title, language, distance, latitude, longitude)
+    );
   };
   return (
     <div>

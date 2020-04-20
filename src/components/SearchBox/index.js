@@ -5,17 +5,33 @@ export default function SearchBox(props) {
   const [language, setLanguage] = useState("all");
   const [distance, setDistance] = useState("all");
   const [title, setTitle] = useState("all");
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
   const clickHandler = event => {
     event.preventDefault();
-    console.log(title, "title", language, "language", distance, "distance");
-    props.getBooks(title, language, distance);
-    console.log("PROPS", title, language);
+    console.log(
+      "Search is Clicked!",
+      title,
+      "title",
+      language,
+      "language",
+      distance,
+      "distance",
+      latitude,
+      "latitude",
+      longitude,
+      "longitude"
+    );
+    props.getBooks(title, language, distance, latitude, longitude);
+    console.log("PROPS", title, language, distance, latitude, longitude);
   };
 
   const showPosition = position => {
     const { latitude, longitude } = position.coords;
     console.log("COORDINATS", latitude, longitude);
+    setLatitude(latitude);
+    setLongitude(longitude);
   };
 
   const getCoordinats = event => {
@@ -77,9 +93,9 @@ export default function SearchBox(props) {
               onChange={e => setDistance(e.target.value)}
             >
               <option value="all">All</option>
-              <option value="1">2 km</option>
-              <option value="2">5 km</option>
-              <option value="3">10 km</option>
+              <option value="2">2 km</option>
+              <option value="5">5 km</option>
+              <option value="10">10 km</option>
             </select>
           </div>
         </Col>
