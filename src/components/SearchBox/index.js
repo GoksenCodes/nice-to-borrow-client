@@ -93,9 +93,9 @@ export default function SearchBox(props) {
               onChange={e => setDistance(e.target.value)}
             >
               <option value="all">All</option>
-              <option value="2">2 km</option>
-              <option value="5">5 km</option>
-              <option value="10">10 km</option>
+              <option value="5000">5 km</option>
+              <option value="10000">10 km</option>
+              <option value="20000">20 km</option>
             </select>
           </div>
         </Col>
