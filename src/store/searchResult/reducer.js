@@ -5,7 +5,7 @@ const initialState = [];
 export default (state = initialState, action) => {
   switch (action.type) {
     case BOOKSEARCH_SUCCESS:
-      return [...state, ...action.payload];
+      return [...action.payload];
     default:
       return state;
   }
