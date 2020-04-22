@@ -1,10 +1,16 @@
 import React from "react";
 import SearchBox from "../../components/SearchBox";
-import { useDispatch } from "react-redux";
-import { fetchSearchedBooks } from "../../store/searchResult/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchSearchedBooks,
+  BOOKSEARCH_SUCCESS
+} from "../../store/searchResult/actions";
+import { selectBooks } from "../../store/searchResult/selectors";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const dispatch = useDispatch();
+  const books = useSelector(selectBooks);
 
   const getBooks = (title, language, distance, latitude, longitude) => {
     dispatch(
@@ -18,6 +24,19 @@ export default function HomePage() {
         just browse the books around you!
       </h5>
       <SearchBox getBooks={getBooks} />
+      <ul>
+        {" "}
+        {books.map(book => {
+          console.log(book);
+          return (
+            <li key={book.id}>
+              <Link to={`/${book.id}`}>
+                {book.title} , {book.author}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
