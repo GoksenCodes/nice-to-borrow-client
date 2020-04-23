@@ -23,6 +23,7 @@ export default function BookDetails() {
         id={book.id}
         title={book.title}
         description={book.description}
+        borrowingPeriod={book.borrowingPeriod}
         imageUrl={book.imageUrl}
         isAvailable={book.isAvailable}
         author={book.author}

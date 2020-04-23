@@ -18,7 +18,7 @@ export default function Book(props) {
         <img className="d-block w-100" src={props.imageUrl} alt={props.title} />
         <h3>{props.author}</h3>
         <p>{props.description}</p>
-        <p>{props.borrowingPeriod}</p>
+        <p>Borrowing period: {props.borrowingPeriod / 7} weeks</p>
         <div>
           {props.isAvailable ? (
             <Button
