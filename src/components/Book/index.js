@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { borrowBook } from "../../store/book/actions";
+import { selectToken } from "../../store/user/selectors";
 
 export default function Book(props) {
   const dispatch = useDispatch();
+  const token = useSelector(selectToken);
+  const history = useHistory();
 
   return (
     <div>
@@ -20,12 +23,14 @@ export default function Book(props) {
           {props.isAvailable ? (
             <Button
               variant="primary"
-              onClick={() => dispatch(borrowBook(props.id))}
+              onClick={() => {
+                token ? dispatch(borrowBook(props.id)) : history.push("/login");
+              }}
             >
-              >Borrow this book
+              Borrow this book
             </Button>
           ) : (
-            <p>Borrowed by another user</p>
+            <p>Already borrowed! </p>
           )}
         </div>
       </Jumbotron>

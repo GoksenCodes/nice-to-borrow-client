@@ -1,6 +1,7 @@
 import axios from "axios";
 import { apiUrl } from "../../config/constants";
 import selectUser from "../user/selectors";
+
 import {
   appLoading,
   appDoneLoading,
@@ -10,6 +11,7 @@ import {
 
 export const FETCH_BOOK_DETAILS_SUCCESS = "FETCH_BOOK_DETAILS_SUCCESS";
 export const BORROW_SUCCESS = "BORROW_SUCCESS";
+export const AVAILABILITY_UPDATED = "AVAILABILITY_UPDATED";
 
 export function getBookById(id) {
   return async function(dispatch, getState) {
@@ -23,6 +25,23 @@ export function getBookById(id) {
     console.log(response.data);
   };
 }
+
+export const updateBookAvailability = isAvailable => {
+  console.log("AVAILABILITY");
+  return async (dispatch, getState) => {
+    const state = getState();
+    const id = state.bookDetails.id;
+    console.log("BOOK ID IN PATCH", id);
+    const response = await axios.patch(`${apiUrl}/books/${id}`, {
+      isAvailable
+    });
+    dispatch({
+      type: "AVAILABILITY_UPDATED",
+      payload: response.data
+    });
+    console.log("AVAILABILITY RESPONSE", response.data);
+  };
+};
 
 export const borrowBook = (userId, bookId, startDate, endDate) => {
   return async (dispatch, getState) => {
@@ -64,12 +83,13 @@ export const borrowBook = (userId, bookId, startDate, endDate) => {
         type: "BORROW_SUCCESS",
         payload: response.data
       });
+      dispatch(updateBookAvailability());
       dispatch(
         showMessageWithTimeout(
           "success",
           false,
-          `your request has been sent to ${bookOwner}!`,
-          5000
+          `Your borrow request has been sent! You will hear from ${bookOwner} in 24 hours!`,
+          6000
         )
       );
       dispatch(appDoneLoading());
