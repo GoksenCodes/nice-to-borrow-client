@@ -3,6 +3,7 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { borrowBook } from "../../store/book/actions";
 
 export default function Book(props) {
   const dispatch = useDispatch();
@@ -17,7 +18,12 @@ export default function Book(props) {
         <p>{props.borrowingPeriod}</p>
         <div>
           {props.isAvailable ? (
-            <Button variant="primary">Borrow this book</Button>
+            <Button
+              variant="primary"
+              onClick={() => dispatch(borrowBook(props.id))}
+            >
+              >Borrow this book
+            </Button>
           ) : (
             <p>Borrowed by another user</p>
           )}
