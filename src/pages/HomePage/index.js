@@ -18,21 +18,20 @@ export default function HomePage() {
     );
   };
   return (
-    <div>
+    <div className="pt-5">
       <h5>
         Search a book by it's title or check out the books in your language or
         just browse the books around you!
       </h5>
       <SearchBox getBooks={getBooks} />
-      <ul>
+      <ul className="p-5 unstyled-list">
         {" "}
         {books.map(book => {
           console.log(book);
           return (
             <li key={book.id}>
-              <Link to={`/${book.id}`}>
-                {book.title} , {book.author}
-              </Link>
+              <Link to={`/${book.id}`}>{book.title}</Link>
+              <p>{book.author}</p>
             </li>
           );
         })}

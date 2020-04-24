@@ -41,10 +41,10 @@ export default function SearchBox(props) {
 
   return (
     <Container className="p-5">
-      <Form className="p-5" onSubmit={clickHandler}>
+      <Form className="p-3 pb-5" onSubmit={clickHandler}>
         <Form.Group controlId="formBasicEmail">
           <Row>
-            <Col xs={8}>
+            <Col xs={10}>
               <Form.Control
                 type="search"
                 placeholder="Search a book by title"
@@ -61,16 +61,16 @@ export default function SearchBox(props) {
         </Form.Group>
       </Form>
       <Row>
-        <Col xs={4}>
-          <div className="input-group p-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text">Search by language</label>
-            </div>
+        <Col xs={6}>
+          <div className="input-group p-1">
             <select
               className="custom-select"
               id="inputGroupSelect01"
               onChange={e => setLanguage(e.target.value)}
             >
+              <option disabled selected>
+                Search by language
+              </option>
               <option value="all">All</option>
               <option value="tr">Turkish</option>
               <option value="pt">Portuguese</option>
@@ -81,17 +81,17 @@ export default function SearchBox(props) {
             </select>
           </div>
         </Col>
-        <Col xs={4}>
-          <div className="input-group p-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text">Books around me</label>
-            </div>
+        <Col xs={6}>
+          <div className="input-group p-1">
             <select
               className="custom-select"
               id="inputGroupSelect01"
               onFocus={getCoordinates}
               onChange={e => setDistance(e.target.value)}
             >
+              <option disabled selected>
+                Search books around me
+              </option>
               <option value="all">All</option>
               <option value="5000">5 km</option>
               <option value="10000">10 km</option>

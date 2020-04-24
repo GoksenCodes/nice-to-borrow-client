@@ -11,6 +11,7 @@ export default function BookDetails() {
   const { id } = useParams();
   const book = useSelector(selectBookDetails);
   console.log("BOOK in BOOKDETAILS", book);
+  console.log("USER", book.user);
 
   useEffect(() => {
     dispatch(getBookById(id));
@@ -27,6 +28,7 @@ export default function BookDetails() {
         imageUrl={book.imageUrl}
         isAvailable={book.isAvailable}
         author={book.author}
+        //user={book.user.userName}
       />
     </div>
   );
