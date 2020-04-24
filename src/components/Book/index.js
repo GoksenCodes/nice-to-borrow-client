@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import { Button, Row, Col } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { borrowBook } from "../../store/book/actions";
 import { selectToken } from "../../store/user/selectors";
