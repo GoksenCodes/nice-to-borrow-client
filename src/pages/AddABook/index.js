@@ -51,7 +51,8 @@ export default function AddABook() {
           ),
       setDetailsFromGoogle({
         imageUrl: "",
-        description: ""
+        description: "",
+        author: ""
       }),
       setLanguage(""),
       setAuthor(""),
@@ -65,9 +66,9 @@ export default function AddABook() {
     console.log("response from google", response);
     setDetailsFromGoogle({
       author: response.data.items[0].volumeInfo.authors[0],
-      imageUrl: response.data.items[0].volumeInfo.imageLinks.thumbnail
+      imageUrl: response.data.items[0].volumeInfo.imageLinks
         ? response.data.items[0].volumeInfo.imageLinks.thumbnail
-        : "",
+        : null,
       description: response.data.items[0].volumeInfo.description
     });
     console.log("CEVAP", author, imageUrl, description);
@@ -140,7 +141,9 @@ export default function AddABook() {
       <Form.Group>
         <Form.Label>Image url</Form.Label>
         <Form.Control
-          value={detailsFromGoogle.imageUrl}
+          value={
+            detailsFromGoogle.imageUrl ? detailsFromGoogle.imageUrl : imageUrl
+          }
           onChange={event => setImageUrl(event.target.value)}
           type="text"
           placeholder="my book image"
