@@ -48,8 +48,8 @@ export const addBook = (
         showMessageWithTimeout(
           "success",
           false,
-          "Thanks for sharing your book with others!",
-          5000
+          `${title} is added, thanks for sharing your book with others!`,
+          6000
         )
       );
       dispatch({ type: "POST_BOOK_SUCCESSS", payload: response.data });

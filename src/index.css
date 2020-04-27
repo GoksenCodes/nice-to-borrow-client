@@ -33,3 +33,12 @@ h5 {
 .unstyled-list li {
   font-size: 1.15rem;
 }
+
+.navbar {
+  background-color: #fff !important;
+  border-bottom: 1px solid #eee;
+}
+
+.borrowed {
+  color: red;
+}
