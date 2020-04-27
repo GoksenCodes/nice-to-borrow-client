@@ -28,7 +28,7 @@ export default function BookDetails() {
         imageUrl={book.imageUrl}
         isAvailable={book.isAvailable}
         author={book.author}
-        //user={book.user.userName}
+        user={book.user ? book.user.name : null}
       />
     </div>
   );

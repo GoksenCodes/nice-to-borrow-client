@@ -20,8 +20,8 @@ export default function HomePage() {
   return (
     <div className="pt-5">
       <h5>
-        Search a book by it's title or check out the books in your language or
-        just browse the books around you!
+        Find books in your language or around you! Looking for something
+        specific? Search by title!
       </h5>
       <SearchBox getBooks={getBooks} />
       <ul className="p-5 unstyled-list">
