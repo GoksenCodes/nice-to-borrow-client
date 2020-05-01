@@ -13,5 +13,5 @@ Sequelize
 React-Bootstrap
 Geolocation 
 PostGIS
-SQL
+Postgres
 
