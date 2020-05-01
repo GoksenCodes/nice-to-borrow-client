@@ -11,7 +11,8 @@ Redux
 CSS
 Bootstrap
 
-[BACK END]:(https://github.com/GoksenCodes/nice-to-borrow-server)
+
+[BACK END](https://github.com/GoksenCodes/nice-to-borrow-server):
 Node.js
 Express.js
 REST API
