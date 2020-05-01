@@ -1,11 +1,17 @@
 ##NICE TO BORROW
+A web app for users to search, borrow, and share books locally. Built with React & Redux for the front end, Node with Express for RestAPIs in the backend, and PostgreSQL with Sequelize and Postgis for storing location-based user data.
 
-Nice to borrow is an application that allows users to borrow a book in various languages and build up a relationship between old school book lovers in their area. You don’t have to wait to travel to your hometown or wait for a visitor to reach books in your language. 
 
 ###Technology used:
 
+FRONT END:
+JavaScript(ES6+)
 React
 Redux
+CSS
+Bootstrap
+
+[BACK END]:(https://github.com/GoksenCodes/nice-to-borrow-server)
 Node.js
 Express.js
 REST API
