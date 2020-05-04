@@ -19,8 +19,10 @@ export default function AddABook() {
   const [imageUrl, setImageUrl] = useState("");
   const [borrowingPeriod, setBorrowingPeriod] = useState("");
   const [language, setLanguage] = useState("");
-  const [author, setAuthor] = useState("");
+
   const [detailsFromGoogle, setDetailsFromGoogle] = useState({});
+  const [author, setAuthor] = useState("");
+
   const finalDescription = detailsFromGoogle.description
     ? detailsFromGoogle.description
     : description;
@@ -57,7 +59,8 @@ export default function AddABook() {
       setLanguage(""),
       setAuthor(""),
       setBorrowingPeriod(""),
-      setTitle("")
+      setTitle(""),
+      setDescription("")
     );
   }
 
@@ -119,7 +122,7 @@ export default function AddABook() {
       <Form.Group>
         <Form.Label>Author</Form.Label>
         <Form.Control
-          value={detailsFromGoogle.author}
+          value={detailsFromGoogle.author ? detailsFromGoogle.author : author}
           onChange={event => setAuthor(event.target.value)}
           type="text"
           placeholder="Author of the book"

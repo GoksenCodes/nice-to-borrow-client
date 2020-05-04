@@ -50,7 +50,7 @@ export default function Book(props) {
                 Borrow this book
               </Button>
             ) : (
-              <p className="borrowed">Already borrowed! </p>
+              <p className="borrowed">Reserved! </p>
             )}
           </div>
         </Col>

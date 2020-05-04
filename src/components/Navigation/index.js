@@ -7,7 +7,7 @@ import { selectToken } from "../../store/user/selectors";
 import NavbarItem from "./NavbarItem";
 import LoggedIn from "./LoggedIn";
 import LoggedOut from "./LoggedOut";
-import logo from "../../Images/logo.png";
+import logo from "../../Images/nice-to-borrow-logo.png";
 
 export default function Navigation() {
   const token = useSelector(selectToken);
