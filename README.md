@@ -6,23 +6,23 @@ Nice to borrow is an application that allows users to search for a book by its t
 ## Table of contents:
 
 - **[App demo](#app-demo)**
-- **[Goals-for-this-project](#goals-for-this-project)**
+- **[Goals for this project](#goals-for-this-project)**
 - **[Technologies used](#technologies-used)**
 - **[User stories](#user-stories)**
 - **[Wireframe](#wireframe)**
 - **[Data Model](#data-model)**
 - **[Git workflow](#git-workflow)**
-- **[Server-repo](#server-repo)**
+- **[Server repo](#server-repo)**
 
 ### App demo:
-![](src/images/demo/1-landing-page.png)
-![](src/images/demo/2-search-by-language.png)
-![](src/images/demo/3-search-by-distance.png)
-![](src/images/demo/5-search-by-title.png)
-![](src/images/demo/6-book-detail.png)
-![](src/images/demo/8-borrow-request-success.png)
-![](src/images/demo/10-get-details-from-google.png)
-![](src/images/demo/11-add-a-book-success.png)
+![](src/Images/demo/1-landing-page.png)
+![](src/Images/demo/2-search-by-language.png)
+![](src/Images/demo/3-search-by-distance.png)
+![](src/Images/demo/5-search-by-title.png)
+![](src/Images/demo/6-book-detail.png)
+![](src/Images/demo/8-borrow-request-success.png)
+![](src/Images/demo/10-get-details-from-google.png)
+![](src/Images/demo/11-add-a-book-success.png)
 
 ### Goals for this project
 The goal of this project is to build a full-stack app by using technologies I've learned during full-stack web developer bootcamp and using new technologies and libraries that I learned by reading documentation and watching tutorial videos.
@@ -70,14 +70,14 @@ This mvp is still a work in progress. Some features still need to be implemented
  
 ### Wireframe
  
-![](src/images/wireframes/1.png)
-![](src/images/wireframes/2.png)
-![](src/images/wireframes/3.png)
-![](src/images/wireframes/4.png)
-![](src/images/wireframes/5.png)
+![](src/Images/wireframes/1.png)
+![](src/Images/wireframes/2.png)
+![](src/Images/wireframes/3.png)
+![](src/Images/wireframes/4.png)
+![](src/Images/wireframes/5.png)
 
 ### Data Model
-![](src/images/datamodel/data-model.png)
+![](src/Images/datamodel/data-model.png)
  
 ### Git workflow
 In this project, I practice:
