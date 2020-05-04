@@ -77,7 +77,7 @@ This mvp is still a work in progress. Some features still need to be implemented
 ![](src/Images/wireframes/5.png)
 
 ### Data Model
-![](src/Images/datamodel/data-model.png)
+![](src/Images/datamodel/data-model-schema.png)
  
 ### Git workflow
 In this project, I practice:
