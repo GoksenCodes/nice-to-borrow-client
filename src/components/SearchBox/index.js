@@ -4,7 +4,7 @@ import { Button, Form, Col, Row, Container } from "react-bootstrap";
 export default function SearchBox(props) {
   const [language, setLanguage] = useState("all");
   const [distance, setDistance] = useState("all");
-  const [title, setTitle] = useState("all");
+  const [title, setTitle] = useState("");
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
 
