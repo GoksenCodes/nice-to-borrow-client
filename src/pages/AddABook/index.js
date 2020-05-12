@@ -67,14 +67,24 @@ export default function AddABook() {
   function handleGoogleResponse(response) {
     console.log("handlegoogleresponse FIRED");
     console.log("response from google", response);
-    setDetailsFromGoogle({
-      author: response.data.items[0].volumeInfo.authors[0],
-      imageUrl: response.data.items[0].volumeInfo.imageLinks
-        ? response.data.items[0].volumeInfo.imageLinks.thumbnail
-        : null,
-      description: response.data.items[0].volumeInfo.description
-    });
-    console.log("CEVAP", author, imageUrl, description);
+    if (response.data.totalItems > 0)
+      setDetailsFromGoogle({
+        author: response.data.items[0].volumeInfo.authors[0],
+        imageUrl: response.data.items[0].volumeInfo.imageLinks
+          ? response.data.items[0].volumeInfo.imageLinks.thumbnail
+          : null,
+        description: response.data.items[0].volumeInfo.description
+      });
+    else;
+    dispatch(
+      showMessageWithTimeout(
+        "danger",
+        true,
+        `Details of this book can not found`,
+        3000
+      )
+    );
+    console.log("results from Google", author, imageUrl, description);
   }
 
   function fetchFromGoogle() {
