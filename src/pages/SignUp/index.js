@@ -7,29 +7,48 @@ import { selectToken } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
+import { selectBookDetails } from "../../store/book/selectors";
+import { showMessageWithTimeout } from "../../store/appState/actions";
 
 export default function SignUp() {
-  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [longitude, setLongitude] = useState(0);
+  const [latitude, setLatitude] = useState(0);
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const history = useHistory();
+  const book = useSelector(selectBookDetails);
 
   useEffect(() => {
     if (token !== null) {
-      history.push("/");
+      book.id ? history.push("/:id") : history.push("/");
     }
   }, [token, history]);
 
+  const getPosition = () => {
+    const coordinatesFromLs = localStorage.getItem("coordinates");
+    console.log("COORD in Sigup", coordinatesFromLs);
+    const coordinates = JSON.parse(coordinatesFromLs);
+    console.log("parsed coord", coordinates);
+    const lng = coordinates[0].longitude;
+    const lat = coordinates[1].latitude;
+    setLatitude(lat);
+    setLongitude(lng);
+  };
+
   function submitForm(event) {
     event.preventDefault();
+    getPosition();
+    dispatch(signUp(userName, fullName, email, password, longitude, latitude));
+    console.log(userName, latitude);
 
-    dispatch(signUp(name, email, password));
-
+    setUserName("");
+    setFullName("");
     setEmail("");
     setPassword("");
-    setName("");
   }
 
   return (
@@ -37,10 +56,20 @@ export default function SignUp() {
       <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
         <h1 className="mt-5 mb-5">Signup</h1>
         <Form.Group controlId="formBasicName">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>User Name</Form.Label>
           <Form.Control
-            value={name}
-            onChange={event => setName(event.target.value)}
+            value={userName}
+            onChange={event => setUserName(event.target.value)}
+            type="text"
+            placeholder="Enter name"
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="formBasicName">
+          <Form.Label>Full Name</Form.Label>
+          <Form.Control
+            value={fullName}
+            onChange={event => setFullName(event.target.value)}
             type="text"
             placeholder="Enter name"
             required
