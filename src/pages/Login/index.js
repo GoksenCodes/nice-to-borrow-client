@@ -7,6 +7,7 @@ import { selectToken } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
+import { selectBookDetails } from "../../store/book/selectors";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -14,10 +15,11 @@ export default function SignUp() {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const history = useHistory();
+  const book = useSelector(selectBookDetails);
 
   useEffect(() => {
     if (token !== null) {
-      history.push("/");
+      book.id ? history.push("/:id") : history.push("/");
     }
   }, [token, history]);
 
