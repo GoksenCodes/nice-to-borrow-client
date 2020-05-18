@@ -34,6 +34,13 @@ export default function SearchBox(props) {
     setLongitude(longitude);
   };
 
+  localStorage.setItem(
+    "coordinates",
+    JSON.stringify([{ longitude }, { latitude }])
+  );
+
+  // localStorage.setItem("cart", JSON.stringify([...state, action.payload]))
+
   const getCoordinates = event => {
     event.preventDefault();
     navigator.geolocation.getCurrentPosition(showPosition);
