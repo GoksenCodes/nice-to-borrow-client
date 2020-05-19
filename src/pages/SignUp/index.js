@@ -28,22 +28,40 @@ export default function SignUp() {
     }
   }, [token, history]);
 
+  useEffect(() => {
+    getPosition();
+  }, []);
+
   const getPosition = () => {
     const coordinatesFromLs = localStorage.getItem("coordinates");
     console.log("COORD in Sigup", coordinatesFromLs);
     const coordinates = JSON.parse(coordinatesFromLs);
     console.log("parsed coord", coordinates);
     const lng = coordinates[0].longitude;
+
     const lat = coordinates[1].latitude;
+    console.log("lng, lat", lng, lat);
     setLatitude(lat);
     setLongitude(lng);
+    console.log("coords after getPosition", lng, lat);
   };
 
+  const location = {
+    type: "Point",
+    coordinates: [longitude, latitude],
+    crs: {
+      type: "name",
+      properties: {
+        name: "urn:ogc:def:crs:EPSG::4326"
+      }
+    }
+  };
+  console.log("LOCATION", location);
   function submitForm(event) {
     event.preventDefault();
-    getPosition();
-    dispatch(signUp(userName, fullName, email, password, longitude, latitude));
-    console.log(userName, latitude);
+
+    dispatch(signUp(userName, fullName, email, password, location));
+    console.log(userName, location);
 
     setUserName("");
     setFullName("");
@@ -55,7 +73,7 @@ export default function SignUp() {
     <Container>
       <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
         <h1 className="mt-5 mb-5">Signup</h1>
-        <Form.Group controlId="formBasicName">
+        <Form.Group controlId="formUserName">
           <Form.Label>User Name</Form.Label>
           <Form.Control
             value={userName}
