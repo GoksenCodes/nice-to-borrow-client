@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, Col, Row, Container } from "react-bootstrap";
 
 export default function SearchBox(props) {
@@ -7,6 +7,10 @@ export default function SearchBox(props) {
   const [title, setTitle] = useState("");
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+
+  useEffect(() => {
+    getCoordinates();
+  }, []);
 
   const clickHandler = event => {
     event.preventDefault();
@@ -41,8 +45,8 @@ export default function SearchBox(props) {
 
   // localStorage.setItem("cart", JSON.stringify([...state, action.payload]))
 
-  const getCoordinates = event => {
-    event.preventDefault();
+  const getCoordinates = () => {
+    // event.preventDefault();
     navigator.geolocation.getCurrentPosition(showPosition);
   };
 
@@ -93,7 +97,7 @@ export default function SearchBox(props) {
             <select
               className="custom-select"
               id="inputGroupSelect01"
-              onFocus={getCoordinates}
+              // onFocus={getCoordinates}
               onChange={e => setDistance(e.target.value)}
             >
               <option disabled selected>
