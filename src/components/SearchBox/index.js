@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Col, Row, Container } from "react-bootstrap";
+import axios from "axios";
+import { apiUrl } from "../../config/constants";
+import ISO6391 from "iso-639-1";
 
 export default function SearchBox(props) {
   const [language, setLanguage] = useState("all");
@@ -7,6 +10,12 @@ export default function SearchBox(props) {
   const [title, setTitle] = useState("");
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [avLanguages, setAvLanguages] = useState([]);
+
+  useEffect(() => {
+    getLanguages();
+    console.log("langs", avLanguages);
+  }, [avLanguages]);
 
   useEffect(() => {
     getCoordinates();
@@ -50,6 +59,18 @@ export default function SearchBox(props) {
     navigator.geolocation.getCurrentPosition(showPosition);
   };
 
+  async function getLanguages() {
+    const res = await axios.get(`${apiUrl}/books/languages`);
+    const langShort = res.data;
+    console.log("langShort", langShort);
+    const languages = langShort.map(language => ISO6391.getName(language));
+    console.log("languages long version", languages);
+    if (avLanguages.length === 0) {
+      setAvLanguages(languages);
+    }
+    console.log("languages after setting", avLanguages);
+  }
+
   return (
     <Container className="p-5">
       <Form className="p-3 pb-5" onSubmit={clickHandler}>
@@ -83,12 +104,16 @@ export default function SearchBox(props) {
                 Search by language
               </option>
               <option value="all">All</option>
-              <option value="tr">Turkish</option>
-              <option value="pt">Portuguese</option>
-              <option value="pl">Polish</option>
-              <option value="ru">Russian</option>
-              <option value="fr">French</option>
-              <option value="es">Spanish</option>
+              {avLanguages.map(language => {
+                return (
+                  <option
+                    value={ISO6391.getCode(language)}
+                    key={language.index}
+                  >
+                    {language}{" "}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </Col>
