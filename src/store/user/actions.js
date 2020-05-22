@@ -26,15 +26,18 @@ const tokenStillValid = userWithoutToken => ({
 
 export const logOut = () => ({ type: LOG_OUT });
 
-export const signUp = (name, email, password) => {
+export const signUp = (userName, fullName, email, password, location) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
       const response = await axios.post(`${apiUrl}/signup`, {
-        name,
+        userName,
+        fullName,
         email,
-        password
+        password,
+        location
       });
+      console.log("response at action", response);
 
       dispatch(loginSuccess(response.data));
       dispatch(showMessageWithTimeout("success", true, "account created"));
