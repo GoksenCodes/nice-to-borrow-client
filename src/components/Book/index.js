@@ -24,11 +24,9 @@ export default function Book(props) {
             <strong>Borrowing period: </strong>
             {props.borrowingPeriod / 7} weeks
           </p>
-          {props.user ? (
-            <p className="meta-text">
-              <strong>Listed by {}</strong>{" "}
-            </p>
-          ) : null}
+          <p className="meta-text">
+            <strong>Listed by: </strong> {props.owner}
+          </p>
         </Col>
         <Col xs={9}>
           <h3 className="base-title">{props.title}</h3>
