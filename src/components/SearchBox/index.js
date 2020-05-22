@@ -11,6 +11,7 @@ export default function SearchBox(props) {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [avLanguages, setAvLanguages] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     getLanguages();
@@ -20,6 +21,14 @@ export default function SearchBox(props) {
   useEffect(() => {
     getCoordinates();
   }, []);
+
+  useEffect(() => {
+    toggle && startSearch();
+  }, [language, distance]);
+
+  const startSearch = () => {
+    props.getBooks(title, language, distance, latitude, longitude);
+  };
 
   const clickHandler = event => {
     event.preventDefault();
@@ -98,7 +107,10 @@ export default function SearchBox(props) {
             <select
               className="custom-select"
               id="inputGroupSelect01"
-              onChange={e => setLanguage(e.target.value)}
+              onChange={e => {
+                setToggle(true);
+                setLanguage(e.target.value);
+              }}
             >
               <option disabled selected>
                 Search by language
@@ -123,7 +135,10 @@ export default function SearchBox(props) {
               className="custom-select"
               id="inputGroupSelect01"
               // onFocus={getCoordinates}
-              onChange={e => setDistance(e.target.value)}
+              onChange={e => {
+                setToggle(true);
+                setDistance(e.target.value);
+              }}
             >
               <option disabled selected>
                 Search books around me
