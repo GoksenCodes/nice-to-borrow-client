@@ -119,10 +119,7 @@ export default function SearchBox(props) {
               <option value="all">All</option>
               {avLanguages.map(language => {
                 return (
-                  <option
-                    value={ISO6391.getCode(language)}
-                    key={language.index}
-                  >
+                  <option value={ISO6391.getCode(language)} key={language}>
                     {language}{" "}
                   </option>
                 );
