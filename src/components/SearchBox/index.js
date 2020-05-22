@@ -107,12 +107,13 @@ export default function SearchBox(props) {
             <select
               className="custom-select"
               id="inputGroupSelect01"
+              defaultValue={"DEFAULT"}
               onChange={e => {
                 setToggle(true);
                 setLanguage(e.target.value);
               }}
             >
-              <option disabled selected>
+              <option value="DEFAULT" disabled>
                 Search by language
               </option>
               <option value="all">All</option>
@@ -133,6 +134,7 @@ export default function SearchBox(props) {
           <div className="input-group p-1">
             <select
               className="custom-select"
+              defaultValue={"DEFAULT"}
               id="inputGroupSelect01"
               // onFocus={getCoordinates}
               onChange={e => {
@@ -140,7 +142,7 @@ export default function SearchBox(props) {
                 setDistance(e.target.value);
               }}
             >
-              <option disabled selected>
+              <option value="DEFAULT" disabled>
                 Search books around me
               </option>
               <option value="all">All</option>
