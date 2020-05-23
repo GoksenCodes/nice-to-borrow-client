@@ -1,12 +1,6 @@
 import axios from "axios";
 import { apiUrl } from "../../config/constants";
-import selectUser from "../user/selectors";
-import {
-  appLoading,
-  appDoneLoading,
-  showMessageWithTimeout,
-  setMessage
-} from "../appState/actions";
+import { appDoneLoading, showMessageWithTimeout } from "../appState/actions";
 
 export const POST_BOOK_SUCCESS = "POST_BOOK_SUCCESS ";
 
@@ -20,9 +14,9 @@ export const addBook = (
 ) => {
   return async (dispatch, getState) => {
     const state = getState();
-    console.log("STATE in ADDBOOK", state);
+
     const token = state.user.token;
-    console.log(token, state.user);
+
     try {
       const response = await axios.post(
         `${apiUrl}/books`,
@@ -40,7 +34,7 @@ export const addBook = (
           }
         }
       );
-      console.log(response.data);
+
       dispatch(
         showMessageWithTimeout(
           "success",
@@ -50,11 +44,9 @@ export const addBook = (
         )
       );
       dispatch({ type: "POST_BOOK_SUCCESSS", payload: response.data });
-      console.log("NEW BOOK", response.data);
+
       dispatch(appDoneLoading());
     } catch (e) {
-      // console.log("danger", e.response.data);
-      // dispatch(showMessageWithTimeout("danger", false, e.response.data, 3000));
       dispatch(appDoneLoading());
     }
   };

@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
 import { selectBookDetails } from "../../store/book/selectors";
-import { showMessageWithTimeout } from "../../store/appState/actions";
 
 export default function SignUp() {
   const [userName, setUserName] = useState("");
