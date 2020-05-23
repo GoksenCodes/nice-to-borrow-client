@@ -1,7 +1,5 @@
 import axios from "axios";
 import { apiUrl } from "../../config/constants";
-import selectUser from "../user/selectors";
-
 import {
   appLoading,
   appDoneLoading,
@@ -21,17 +19,13 @@ export function getBookById(id) {
       type: "FETCH_BOOK_DETAILS_SUCCESS",
       payload: response.data
     });
-
-    console.log(response.data);
   };
 }
 
 export const updateBookAvailability = isAvailable => {
-  console.log("AVAILABILITY");
   return async (dispatch, getState) => {
     const state = getState();
     const id = state.bookDetails.id;
-    console.log("BOOK ID IN PATCH", id);
     const response = await axios.patch(`${apiUrl}/books/${id}`, {
       isAvailable
     });
@@ -39,19 +33,15 @@ export const updateBookAvailability = isAvailable => {
       type: "AVAILABILITY_UPDATED",
       payload: response.data
     });
-    console.log("AVAILABILITY RESPONSE", response.data);
   };
 };
 
 export const borrowBook = (userId, bookId, startDate, endDate) => {
   return async (dispatch, getState) => {
     const state = getState();
-    console.log("STATE in borrowBook", state);
     const token = state.user.token;
     const userId = state.user.id;
-    console.log("USER ID in BORROW", userId);
     const bookId = state.bookDetails.id;
-    console.log("BOOK ID IN BORROW", bookId);
     const borrowingPeriod = state.bookDetails.borrowingPeriod;
     const startDate = new Date();
     Date.prototype.addDays = function(days) {
@@ -60,7 +50,6 @@ export const borrowBook = (userId, bookId, startDate, endDate) => {
       return date;
     };
     const endDate = startDate.addDays(borrowingPeriod);
-    console.log("START DATE,END DATE", startDate, endDate);
     const bookOwner = state.bookDetails.user.userName;
     dispatch(appLoading());
     try {
@@ -78,7 +67,6 @@ export const borrowBook = (userId, bookId, startDate, endDate) => {
           }
         }
       );
-      console.log(response.data);
       dispatch({
         type: "BORROW_SUCCESS",
         payload: response.data
@@ -95,10 +83,8 @@ export const borrowBook = (userId, bookId, startDate, endDate) => {
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
         dispatch(setMessage("danger", true, error.response.data.message, 5000));
       } else {
-        console.log(error.message);
         dispatch(setMessage("danger", true, error.message, 5000));
       }
       dispatch(appDoneLoading());

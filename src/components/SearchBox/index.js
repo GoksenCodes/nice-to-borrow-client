@@ -15,7 +15,6 @@ export default function SearchBox(props) {
 
   useEffect(() => {
     getLanguages();
-    console.log("langs", avLanguages);
   }, [avLanguages]);
 
   useEffect(() => {
@@ -32,26 +31,12 @@ export default function SearchBox(props) {
 
   const clickHandler = event => {
     event.preventDefault();
-    console.log(
-      "Search is Clicked!",
-      title,
-      "title",
-      language,
-      "language",
-      distance,
-      "distance",
-      latitude,
-      "latitude",
-      longitude,
-      "longitude"
-    );
     props.getBooks(title, language, distance, latitude, longitude);
-    console.log("PROPS", title, language, distance, latitude, longitude);
   };
 
   const showPosition = position => {
     const { latitude, longitude } = position.coords;
-    console.log("COORDINATES", latitude, longitude);
+
     setLatitude(latitude);
     setLongitude(longitude);
   };
@@ -61,23 +46,17 @@ export default function SearchBox(props) {
     JSON.stringify([{ longitude }, { latitude }])
   );
 
-  // localStorage.setItem("cart", JSON.stringify([...state, action.payload]))
-
   const getCoordinates = () => {
-    // event.preventDefault();
     navigator.geolocation.getCurrentPosition(showPosition);
   };
 
   async function getLanguages() {
     const res = await axios.get(`${apiUrl}/books/languages`);
     const langShort = res.data;
-    console.log("langShort", langShort);
     const languages = langShort.map(language => ISO6391.getName(language));
-    console.log("languages long version", languages);
     if (avLanguages.length === 0) {
       setAvLanguages(languages);
     }
-    console.log("languages after setting", avLanguages);
   }
 
   return (
@@ -107,21 +86,19 @@ export default function SearchBox(props) {
             <select
               className="custom-select"
               id="inputGroupSelect01"
+              defaultValue={"DEFAULT"}
               onChange={e => {
                 setToggle(true);
                 setLanguage(e.target.value);
               }}
             >
-              <option disabled selected>
+              <option value="DEFAULT" disabled>
                 Search by language
               </option>
               <option value="all">All</option>
               {avLanguages.map(language => {
                 return (
-                  <option
-                    value={ISO6391.getCode(language)}
-                    key={language.index}
-                  >
+                  <option value={ISO6391.getCode(language)} key={language}>
                     {language}{" "}
                   </option>
                 );
@@ -133,14 +110,14 @@ export default function SearchBox(props) {
           <div className="input-group p-1">
             <select
               className="custom-select"
+              defaultValue={"DEFAULT"}
               id="inputGroupSelect01"
-              // onFocus={getCoordinates}
               onChange={e => {
                 setToggle(true);
                 setDistance(e.target.value);
               }}
             >
-              <option disabled selected>
+              <option value="DEFAULT" disabled>
                 Search books around me
               </option>
               <option value="all">All</option>

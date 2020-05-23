@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { Form, Col, Button, Image } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
-// import { selectBooks } from "../../store/searchResult/selectors";
-import { selectBookDetails } from "../../store/book/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import { addBook } from "../../store/addBook/actions";
-import { fetchFromGoogle } from "../../store/addBook/actions";
+
 import axios from "axios";
 import ISO6391 from "iso-639-1";
 import { showMessageWithTimeout } from "../../store/appState/actions";
-
-console.log(ISO6391.getCode("Turkish"));
+import { selectToken } from "../../store/user/selectors";
 
 export default function AddABook() {
-  // const book = useSelector(selectBookDetails);
+  const history = useHistory();
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -22,6 +21,7 @@ export default function AddABook() {
 
   const [detailsFromGoogle, setDetailsFromGoogle] = useState({});
   const [author, setAuthor] = useState("");
+  const token = useSelector(selectToken);
 
   const finalDescription = detailsFromGoogle.description
     ? detailsFromGoogle.description
@@ -35,62 +35,67 @@ export default function AddABook() {
 
   function submitForm(event) {
     event.preventDefault();
-    dispatch(
-      title && finalAuthor && language && borrowingPeriod
-        ? addBook(
-            title,
-            finalDescription,
-            finalImageUrl,
-            borrowingPeriod,
-            finalAuthor,
-            language
-          )
-        : showMessageWithTimeout(
-            "danger",
-            true,
-            `Title, language, author and borrowing period are required fields`,
-            3000
-          ),
-      setDetailsFromGoogle({
-        imageUrl: "",
-        description: "",
-        author: ""
-      }),
-      setLanguage(""),
-      setAuthor(""),
-      setBorrowingPeriod(""),
-      setTitle(""),
-      setDescription("")
-    );
+    if (token) {
+      dispatch(
+        title && finalAuthor && language && borrowingPeriod
+          ? addBook(
+              title,
+              finalDescription,
+              finalImageUrl,
+              borrowingPeriod,
+              finalAuthor,
+              ISO6391.getCode(language)
+            )
+          : showMessageWithTimeout(
+              "danger",
+              true,
+              `Title, language, author and borrowing period are required fields`,
+              3000
+            ),
+        setDetailsFromGoogle({
+          imageUrl: "",
+          description: "",
+          author: ""
+        }),
+        setLanguage(""),
+        setAuthor(""),
+        setBorrowingPeriod(""),
+        setTitle(""),
+        setDescription("")
+      );
+    } else {
+      history.push("/login");
+    }
   }
 
   function handleGoogleResponse(response) {
-    console.log("handlegoogleresponse FIRED");
-    console.log("response from google", response);
     if (response.data.totalItems > 0)
       setDetailsFromGoogle({
-        author: response.data.items[0].volumeInfo.authors[0],
+        author: response.data.items[0].volumeInfo.authors
+          ? response.data.items[0].volumeInfo.authors[0]
+          : null,
         imageUrl: response.data.items[0].volumeInfo.imageLinks
           ? response.data.items[0].volumeInfo.imageLinks.thumbnail
           : null,
         description: response.data.items[0].volumeInfo.description
       });
-    else;
-    dispatch(
-      showMessageWithTimeout(
-        "danger",
-        true,
-        `Details of this book can not found`,
-        3000
-      )
-    );
-    console.log("results from Google", author, imageUrl, description);
+    else {
+      const oneSecond = 1000;
+      const threeSeconds = oneSecond * 3;
+      setTimeout(function() {}, threeSeconds);
+      dispatch(
+        showMessageWithTimeout(
+          "danger",
+          true,
+          `Details of this book can not found`,
+          3000
+        )
+      );
+    }
   }
 
   function fetchFromGoogle() {
-    console.log("FETCHFROMGOOGLE FIRED");
     const API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
-    console.log(API_KEY);
     const languageCode = ISO6391.getCode(language);
     let apiUrl = `https://www.googleapis.com/books/v1/volumes?q=intitle:%22${title}%22&langRestrict=${languageCode}&key=${API_KEY}`;
     axios.get(apiUrl).then(handleGoogleResponse);
@@ -98,7 +103,6 @@ export default function AddABook() {
 
   function handleSearch(event) {
     event.preventDefault();
-    console.log("HANDLE SEARCH FIRED");
     fetchFromGoogle();
   }
 

@@ -10,12 +10,8 @@ export default function BookDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const book = useSelector(selectBookDetails);
-  console.log("BOOK in BOOKDETAILS", book);
   const user = book.user;
-  console.log("USER", book.user);
-  console.log("USER called directly", user);
   const userName = user ? user.userName : null;
-  console.log("USERNAME", userName);
 
   useEffect(() => {
     dispatch(getBookById(id));

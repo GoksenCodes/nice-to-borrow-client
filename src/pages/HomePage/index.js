@@ -1,10 +1,7 @@
 import React from "react";
 import SearchBox from "../../components/SearchBox";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchSearchedBooks,
-  BOOKSEARCH_SUCCESS
-} from "../../store/searchResult/actions";
+import { fetchSearchedBooks } from "../../store/searchResult/actions";
 import { selectBooks } from "../../store/searchResult/selectors";
 import { Link } from "react-router-dom";
 
@@ -27,7 +24,6 @@ export default function HomePage() {
       <ul className="p-5 unstyled-list">
         {" "}
         {books.map(book => {
-          console.log(book);
           return (
             <li key={book.id}>
               <Link to={`/${book.id}`}>{book.title}</Link>
