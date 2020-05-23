@@ -26,8 +26,6 @@ export const fetchSearchedBooks = (
       }
 
       dispatch({ type: "BOOKSEARCH_SUCCESS", payload: response.data });
-    } catch (error) {
-      console.log("error: ", error);
-    }
+    } catch (error) {}
   };
 };

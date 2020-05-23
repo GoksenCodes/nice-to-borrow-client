@@ -33,9 +33,7 @@ export default function SignUp() {
 
   const getPosition = () => {
     const coordinatesFromLs = localStorage.getItem("coordinates");
-    console.log("COORD in Sigup", coordinatesFromLs);
     const coordinates = JSON.parse(coordinatesFromLs);
-    console.log("parsed coord", coordinates);
     const lng = coordinates[0].longitude;
     const lat = coordinates[1].latitude;
     console.log("lng, lat", lng, lat);
@@ -54,12 +52,11 @@ export default function SignUp() {
       }
     }
   };
-  console.log("LOCATION", location);
+
   function submitForm(event) {
     event.preventDefault();
 
     dispatch(signUp(userName, fullName, email, password, location));
-    console.log(userName, location);
 
     setUserName("");
     setFullName("");
