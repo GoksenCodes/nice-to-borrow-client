@@ -76,7 +76,7 @@ export const borrowBook = (userId, bookId, startDate, endDate) => {
         showMessageWithTimeout(
           "success",
           false,
-          `Your borrow request has been sent! You will hear from ${bookOwner} in 24 hours!`,
+          `Your borrow request has been sent! You will hear from the book owner in 24 hours!`,
           6000
         )
       );

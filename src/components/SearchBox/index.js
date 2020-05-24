@@ -62,20 +62,32 @@ export default function SearchBox(props) {
   return (
     <Container className="p-5">
       <Form className="p-3 pb-5" onSubmit={clickHandler}>
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="exampleForm.ControlInput1" className="desktop">
           <Row>
             <Col xs={10}>
               <Form.Control
                 type="search"
-                placeholder="Search a book by title"
+                placeholder="Search a book by title `Harry Potter`"
                 value={title}
                 onChange={e => setTitle(e.target.value)}
               />
             </Col>
             <Col xs={2}>
-              <Button variant="primary" type="search" block>
+              <Button variant="primary" type="search" btn-block="true">
                 Search
               </Button>
+            </Col>
+          </Row>
+        </Form.Group>
+        <Form.Group controlId="exampleForm.ControlInput2" className="mobile">
+          <Row>
+            <Col xs={12}>
+              <Form.Control
+                type="search"
+                placeholder="Book Title `Harry Potter`"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+              />
             </Col>
           </Row>
         </Form.Group>
@@ -84,7 +96,31 @@ export default function SearchBox(props) {
         <Col xs={6}>
           <div className="input-group p-1">
             <select
-              className="custom-select"
+              className="custom-select desktop"
+              id="inputGroupSelect01"
+              defaultValue={"DEFAULT"}
+              onChange={e => {
+                setToggle(true);
+                setLanguage(e.target.value);
+              }}
+            >
+              <option className="desktop" value="DEFAULT" disabled>
+                Search by language
+              </option>
+              <option className="mobile" placeholder="Language" disabled>
+                Language
+              </option>
+              <option value="all">All</option>
+              {avLanguages.map(language => {
+                return (
+                  <option value={ISO6391.getCode(language)} key={language}>
+                    {language}{" "}
+                  </option>
+                );
+              })}
+            </select>
+            <select
+              className="custom-select mobile"
               id="inputGroupSelect01"
               defaultValue={"DEFAULT"}
               onChange={e => {
@@ -93,7 +129,7 @@ export default function SearchBox(props) {
               }}
             >
               <option value="DEFAULT" disabled>
-                Search by language
+                Language
               </option>
               <option value="all">All</option>
               {avLanguages.map(language => {
@@ -109,7 +145,7 @@ export default function SearchBox(props) {
         <Col xs={6}>
           <div className="input-group p-1">
             <select
-              className="custom-select"
+              className="custom-select desktop"
               defaultValue={"DEFAULT"}
               id="inputGroupSelect01"
               onChange={e => {
@@ -119,6 +155,23 @@ export default function SearchBox(props) {
             >
               <option value="DEFAULT" disabled>
                 Search books around me
+              </option>
+              <option value="all">All</option>
+              <option value="2000">2 km</option>
+              <option value="5000">5 km</option>
+              <option value="10000">10 km</option>
+            </select>
+            <select
+              className="custom-select mobile"
+              defaultValue={"DEFAULT"}
+              id="inputGroupSelect01"
+              onChange={e => {
+                setToggle(true);
+                setDistance(e.target.value);
+              }}
+            >
+              <option value="DEFAULT" disabled>
+                Distance
               </option>
               <option value="all">All</option>
               <option value="2000">2 km</option>

@@ -36,10 +36,8 @@ export default function SignUp() {
     const coordinates = JSON.parse(coordinatesFromLs);
     const lng = coordinates[0].longitude;
     const lat = coordinates[1].latitude;
-    console.log("lng, lat", lng, lat);
     setLatitude(lat);
     setLongitude(lng);
-    console.log("coords after getPosition", lng, lat);
   };
 
   const location = {
