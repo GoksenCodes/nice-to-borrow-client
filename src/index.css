@@ -42,3 +42,15 @@ h5 {
 .borrowed {
   color: red;
 }
+
+.mobile {
+  display: none;
+}
+@media (max-width: 640px) {
+  .mobile {
+    display: block;
+  }
+  .desktop {
+    display: none;
+  }
+}
