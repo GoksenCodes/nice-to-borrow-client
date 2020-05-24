@@ -81,7 +81,7 @@ export default function SearchBox(props) {
         </Form.Group>
         <Form.Group controlId="exampleForm.ControlInput2" className="mobile">
           <Row>
-            <Col xs={12}>
+            <Col xs={9}>
               <Form.Control
                 type="search"
                 placeholder="Book Title `Harry Potter`"
@@ -89,14 +89,19 @@ export default function SearchBox(props) {
                 onChange={e => setTitle(e.target.value)}
               />
             </Col>
+            <Col xs={3}>
+              <Button variant="primary" type="search" btn-block="true">
+                Search
+              </Button>
+            </Col>
           </Row>
         </Form.Group>
       </Form>
       <Row>
-        <Col xs={6}>
+        <Col xs={12} md={6}>
           <div className="input-group p-1">
             <select
-              className="custom-select desktop"
+              className="custom-select"
               id="inputGroupSelect01"
               defaultValue={"DEFAULT"}
               onChange={e => {
@@ -119,33 +124,12 @@ export default function SearchBox(props) {
                 );
               })}
             </select>
-            <select
-              className="custom-select mobile"
-              id="inputGroupSelect01"
-              defaultValue={"DEFAULT"}
-              onChange={e => {
-                setToggle(true);
-                setLanguage(e.target.value);
-              }}
-            >
-              <option value="DEFAULT" disabled>
-                Language
-              </option>
-              <option value="all">All</option>
-              {avLanguages.map(language => {
-                return (
-                  <option value={ISO6391.getCode(language)} key={language}>
-                    {language}{" "}
-                  </option>
-                );
-              })}
-            </select>
           </div>
         </Col>
-        <Col xs={6}>
+        <Col xs={12} md={6}>
           <div className="input-group p-1">
             <select
-              className="custom-select desktop"
+              className="custom-select"
               defaultValue={"DEFAULT"}
               id="inputGroupSelect01"
               onChange={e => {
@@ -155,23 +139,6 @@ export default function SearchBox(props) {
             >
               <option value="DEFAULT" disabled>
                 Search books around me
-              </option>
-              <option value="all">All</option>
-              <option value="2000">2 km</option>
-              <option value="5000">5 km</option>
-              <option value="10000">10 km</option>
-            </select>
-            <select
-              className="custom-select mobile"
-              defaultValue={"DEFAULT"}
-              id="inputGroupSelect01"
-              onChange={e => {
-                setToggle(true);
-                setDistance(e.target.value);
-              }}
-            >
-              <option value="DEFAULT" disabled>
-                Distance
               </option>
               <option value="all">All</option>
               <option value="2000">2 km</option>
