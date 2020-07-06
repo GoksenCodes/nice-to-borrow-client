@@ -15,6 +15,11 @@ Nice to borrow is an application that allows users to search for a book by its t
 - **[Server repo](#server-repo)**
 
 ### App demo:
+
+#### Check it out!
+Check the [live version](https://nice-to-borrow.netlify.app/) to demo for yourself!
+(either log in as test@test.com, 1234 or sign up!)
+
 ![](src/Images/demo/1-landing-page.png)
 ![](src/Images/demo/2-search-by-language.png)
 ![](src/Images/demo/3-search-by-distance.png)
@@ -34,7 +39,6 @@ Apply what we learned in the bootcamp
 Practice learning new technology independently
 Showcase approach of development by using wireframes and user stories.
 Practice disciplined git usage.
-Open up the platform to my friends.
 
 ### Technologies used:
 
